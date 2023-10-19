@@ -10,7 +10,7 @@
         public Guid difficultyId { get; set; }
         public Guid regionId { get; set; }
 
-        //Navigation properties
+        //Navigation properties test
         public Difficulty difficulty { get; set; }
         public Region region { get; set; }
 
