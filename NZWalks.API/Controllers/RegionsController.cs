@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using NZWalks.API.Data;
 using NZWalks.API.Models.Domain;
 using NZWalks.API.Models.DTO;
+using System.Globalization;
 
 namespace NZWalks.API.Controllers
 {
@@ -74,6 +75,23 @@ namespace NZWalks.API.Controllers
             //};
 
             return CreatedAtAction(nameof(GetById), new { id = regionDomainModel.Id }, regionDomainModel);
+        }
+        [HttpPut]
+        [Route("{id:Guid}")]
+        public IActionResult Update([FromRoute] UpdateRegionRequestDto updateRegionRequestDto,Guid id)
+        {
+            Region region = _dbContext.Regions.Find(id);
+            if (region==null)
+            {
+                return NotFound();
+            }
+            region.name = updateRegionRequestDto.name;
+            region.code = updateRegionRequestDto.code;
+            region.regionImageUrl = updateRegionRequestDto.regionImageUrl;
+
+            _dbContext.SaveChanges();
+
+            return Ok(region);
         }
     }
 }
