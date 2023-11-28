@@ -2,11 +2,11 @@
 {
     public class Location
     {
-        public Guid id { get; set; }
-        public string name { get; set; }
-        public string coordinates { get; set; }
+        public Guid Id { get; set; }
+        public string Name { get; set; }
+        public string Coordinates { get; set; }
 
-        public Guid difficultyId { get; set; }
-        public Difficulty difficulty { get; set; }
+        public Guid DifficultyId { get; set; }
+        public Difficulty Difficulty { get; set; }
     }
 }
