@@ -64,11 +64,11 @@ namespace NZWalks.API.Controllers
         public async Task<IActionResult> Delete(Guid id)
         {
             var deletedWalk = await _walkRepository.DeleteAsync(id);
-            if (deletedWalk==null)
+            if (deletedWalk!=null)
             {
                 return NotFound();
             }
-            return Ok(deletedWalk);
+            return Ok(_mapper.Map<WalkDto>(deletedWalk));
         }
 
     }
