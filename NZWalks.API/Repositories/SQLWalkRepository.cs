@@ -19,9 +19,33 @@ namespace NZWalks.API.Repositories
             return walk;
         }
 
+        public async Task<Walk?> DeleteAsync(Guid id)
+        {
+            var walkModel = await _dbcontext.Walks.FindAsync(id);
+            _dbcontext.Remove(walkModel);
+            await _dbcontext.SaveChangesAsync();
+            return walkModel;
+        }
+
         public async Task<List<Walk>> GetAllAsync()
         {
             return await _dbcontext.Walks.Include(x=>x.Difficulty).Include(x=>x.Region).ToListAsync();
+        }
+
+        public async Task<Walk?> GetByIdAsync(Guid id)
+        {
+            return await _dbcontext.Walks.FindAsync(id);
+        }
+
+        public async Task<Walk?> UpdateAsync(Guid id,Walk walk)
+        {
+            var walkModel = await _dbcontext.Walks.FindAsync(id);
+            if (walkModel!=null)
+            {
+                _dbcontext.Walks.Update(walk);
+                await _dbcontext.SaveChangesAsync();
+            }
+            return null;
         }
     }
 }
