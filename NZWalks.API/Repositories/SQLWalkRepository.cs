@@ -22,8 +22,13 @@ namespace NZWalks.API.Repositories
         public async Task<Walk?> DeleteAsync(Guid id)
         {
             var walkModel = await _dbcontext.Walks.FindAsync(id);
+            if (walkModel == null)
+            {
+                return null;
+            }
             _dbcontext.Remove(walkModel);
             await _dbcontext.SaveChangesAsync();
+
             return walkModel;
         }
 
