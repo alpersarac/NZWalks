@@ -42,7 +42,13 @@ namespace NZWalks.API.Repositories
             var walkModel = await _dbcontext.Walks.FindAsync(id);
             if (walkModel!=null)
             {
-                _dbcontext.Walks.Update(walk);
+                walkModel.DifficultyId = walk.DifficultyId;
+                walkModel.RegionId = walk.RegionId;
+                walkModel.Description = walk.Description;
+                walkModel.Name= walk.Name;
+                walkModel.WalkImageUrl = walk.WalkImageUrl;
+                walkModel.LengthInKm = walk.LengthInKm;
+
                 await _dbcontext.SaveChangesAsync();
             }
             return null;
