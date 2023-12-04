@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using NZWalks.API.Data;
 using NZWalks.API.Models.Domain;
 using NZWalks.API.Models.DTO;
@@ -48,12 +49,17 @@ namespace NZWalks.API.Controllers
         [HttpPost]
         public async Task<IActionResult> Create([FromBody]AddRegionRequestDto addRegionRequestDto)
         {
-            var regionDomainModel = _mapper.Map<Region>(addRegionRequestDto);
+            if (ModelState.IsValid)
+            {
+                var regionDomainModel = _mapper.Map<Region>(addRegionRequestDto);
 
-            await _regionRepository.CreateAsync(regionDomainModel);
+                await _regionRepository.CreateAsync(regionDomainModel);
 
 
-            return CreatedAtAction(nameof(GetById), new { id = regionDomainModel.Id }, regionDomainModel);
+                return CreatedAtAction(nameof(GetById), new { id = regionDomainModel.Id }, regionDomainModel);
+            }
+            return BadRequest(ModelState);
+            
         }
         [HttpPut]
         [Route("{id:Guid}")]
