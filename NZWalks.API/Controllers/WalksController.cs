@@ -51,9 +51,9 @@ namespace NZWalks.API.Controllers
         }
         [HttpPut]
         [Route("id:Guid")]
-        public async Task<IActionResult> Update([FromRoute]Guid id,UpdateRegionRequestDto updateRegionRequestDto)
+        public async Task<IActionResult> Update([FromRoute]Guid id,UpdateWalkRequestDto updateWalkRequestDto)
         {
-            var walkDto = _mapper.Map<Walk>(updateRegionRequestDto);
+            var walkDto = _mapper.Map<Walk>(updateWalkRequestDto);
 
             walkDto = await _walkRepository.UpdateAsync(id,walkDto);
 
