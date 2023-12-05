@@ -21,10 +21,15 @@ namespace NZWalks.API.Controllers
         [HttpPost]
         public async Task<IActionResult> Create(AddWalkRequestDto addWalkRequestDto)
         {
-            var walkRegionModel = _mapper.Map<Walk>(addWalkRequestDto);
-            await _walkRepository.CreateAsync(walkRegionModel);
+            if (ModelState.IsValid)
+            {
+                var walkRegionModel = _mapper.Map<Walk>(addWalkRequestDto);
+                await _walkRepository.CreateAsync(walkRegionModel);
 
-            return Ok(_mapper.Map<WalkDto>(walkRegionModel));
+                return Ok(_mapper.Map<WalkDto>(walkRegionModel));
+            }
+            return BadRequest(ModelState);
+            
         }
         [HttpGet]
         public async Task<IActionResult> GetAll()
