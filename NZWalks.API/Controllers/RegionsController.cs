@@ -26,8 +26,9 @@ namespace NZWalks.API.Controllers
             _regionRepository = regionRepository;
             _mapper = mapper;
         }
+        //GET:/ api/walks?filterOn=Name&filterQuery=Track
         [HttpGet]
-        public async Task<IActionResult> GetAll()
+        public async Task<IActionResult> GetAll([FromQuery] string? filterOn, [FromQuery] string? filterQuery)
         {
             var regionDomains = await _regionRepository.GetAllAsync();
 
