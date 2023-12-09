@@ -35,7 +35,16 @@ namespace NZWalks.API.Repositories
         public async Task<List<Walk>> GetAllAsync(string? filterOn = null, string? filterQuery = null)
         {
             var walks =  _dbcontext.Walks.Include(x => x.Difficulty).Include(x => x.Region).AsQueryable();
+            //Filtering
+            if (!string.IsNullOrWhiteSpace(filterOn)&&!string.IsNullOrWhiteSpace(filterQuery))
+            {
+                if (filterOn.Equals("Name",StringComparison.OrdinalIgnoreCase))
+                {
+                    walks.Where(x => x.Name.Contains(filterOn));
+                }
+            }
 
+            return await walks.ToListAsync();
             //return await _dbcontext.Walks.Include(x=>x.Difficulty).Include(x=>x.Region).ToListAsync();
         }
 
