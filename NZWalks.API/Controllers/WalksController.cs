@@ -33,7 +33,7 @@ namespace NZWalks.API.Controllers
         public async Task<IActionResult> GetAll([FromQuery] string? filterOn, [FromQuery] string? filterQuery)
         {
 
-            var walkRegionModel = await _walkRepository.GetAllAsync();
+            var walkRegionModel = await _walkRepository.GetAllAsync(filterOn,filterQuery);
 
             return Ok(_mapper.Map<WalkDto>(walkRegionModel));
         }
