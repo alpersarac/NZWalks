@@ -30,7 +30,8 @@ namespace NZWalks.API.Controllers
         }
         //Get: api/walks?filterOn=Name&filterQuery=track
         [HttpGet]
-        public async Task<IActionResult> GetAll([FromQuery] string? filterOn, [FromQuery] string? filterQuery)
+        public async Task<IActionResult> GetAll([FromQuery] string? filterOn, [FromQuery] string? filterQuery
+            [FromQuery] string sortBy, [FromQuery] bool isAscending)
         {
 
             var walkRegionModel = await _walkRepository.GetAllAsync(filterOn,filterQuery);
