@@ -32,9 +32,11 @@ namespace NZWalks.API.Repositories
             return walkModel;
         }
 
-        public async Task<List<Walk>> GetAllAsync()
+        public async Task<List<Walk>> GetAllAsync(string? filterOn = null, string? filterQuery = null)
         {
-            return await _dbcontext.Walks.Include(x=>x.Difficulty).Include(x=>x.Region).ToListAsync();
+            var walks =  _dbcontext.Walks.Include(x => x.Difficulty).Include(x => x.Region).AsQueryable();
+
+            //return await _dbcontext.Walks.Include(x=>x.Difficulty).Include(x=>x.Region).ToListAsync();
         }
 
         public async Task<Walk?> GetByIdAsync(Guid id)
