@@ -30,6 +30,7 @@ namespace NZWalks.API.Controllers
         }
         //Get: api/walks?filterOn=Name&filterQuery=track&sortBy=Name&isAscending=true&pageNumber=1&pageSize=10
         [HttpGet]
+        [Route("api/walks")]
         public async Task<IActionResult> GetAll([FromQuery] string? filterOn, [FromQuery] string? filterQuery,
             [FromQuery] string? sortBy, [FromQuery] bool? isAscending,
             [FromQuery] int pageNumber=1, [FromQuery] int pageSize=1000)
@@ -40,6 +41,7 @@ namespace NZWalks.API.Controllers
             return Ok(_mapper.Map<WalkDto>(walkRegionModel));
         }
         [HttpGet]
+        [Route("id:Guid")]
         public async Task<IActionResult> GetById(Guid id)
         {
             var walkModel = _walkRepository.GetByIdAsync(id);
