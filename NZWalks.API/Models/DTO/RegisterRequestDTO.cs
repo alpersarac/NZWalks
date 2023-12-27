@@ -10,5 +10,6 @@ namespace NZWalks.API.Models.DTO
         [Required]
         [DataType(DataType.Password)]
         public string password { get; set; }
+        public string[] roles { get; set; }
     }
 }

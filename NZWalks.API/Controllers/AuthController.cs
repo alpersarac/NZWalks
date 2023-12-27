@@ -23,11 +23,20 @@ namespace NZWalks.API.Controllers
                 UserName = registerRequestDTO.username,
                 Email = registerRequestDTO.username
             };
-            var identityUseResult=await _userManager.CreateAsync(identityUser,registerRequestDTO.password);
-            if (identityUseResult.Succeeded)
+            var identityResult=await _userManager.CreateAsync(identityUser,registerRequestDTO.password);
+            if (identityResult.Succeeded)
             {
+                if (registerRequestDTO.roles!=null && registerRequestDTO.roles.Any())
+                {
+                    identityResult = await _userManager.AddToRolesAsync(identityUser,registerRequestDTO.roles);
 
+                    if (identityResult.Succeeded)
+                    {
+                        return Ok("User was registered! Please login.");
+                    }
+                }
             }
+            return BadRequest("Something went wrong");
         }
     }
 }
