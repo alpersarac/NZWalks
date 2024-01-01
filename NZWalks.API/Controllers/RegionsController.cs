@@ -15,7 +15,6 @@ namespace NZWalks.API.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    [Authorize]
     public class RegionsController : ControllerBase
     {
         private readonly NZWalksDbContext _dbContext;
@@ -30,11 +29,12 @@ namespace NZWalks.API.Controllers
         }
         //GET:/ api/walks?filterOn=Name&filterQuery=Track
         [HttpGet]
+        [Authorize(Roles ="Reader")]
         public async Task<IActionResult> GetAll([FromQuery] string? filterOn, [FromQuery] string? filterQuery)
         {
             var regionDomains = await _regionRepository.GetAllAsync();
 
-            var regionDto = _mapper.Map<RegionDto>(regionDomains);
+            var regionDto = _mapper.Map<List<RegionDto>>(regionDomains);
             return Ok(regionDto);
         }
         [HttpGet]
