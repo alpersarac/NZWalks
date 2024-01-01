@@ -83,7 +83,7 @@ namespace NZWalks.API.Controllers
         }
         [HttpDelete]
         [Route("{id:Guid}")]
-        [Authorize(Roles = "Writer")]
+        [Authorize(Roles = "Writer, Reader")]
         public async Task<IActionResult> Delete([FromRoute] Guid id)
         {
             Region region = _dbContext.Regions.Find(id);
