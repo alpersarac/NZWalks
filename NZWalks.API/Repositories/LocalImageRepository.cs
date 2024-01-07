@@ -19,7 +19,8 @@ namespace NZWalks.API.Repositories
         }
         public async Task<Image> Upload(Image image)
         {
-            var localFilePath = Path.Combine(_webHostEnvironment.ContentRootPath, "Images", image.fileName, image.fileExtention);
+            var localFilePath = Path.Combine(_webHostEnvironment.ContentRootPath, "Images", 
+                $"{image.fileName}{image.fileExtention}");
             
             using var stream = new FileStream(localFilePath,FileMode.Create);
             await image.file.CopyToAsync(stream);
@@ -29,6 +30,7 @@ namespace NZWalks.API.Repositories
 
             await _dbContext.Images.AddAsync(image);
             await _dbContext.SaveChangesAsync();
+            return image;
         }   
     }
 }
