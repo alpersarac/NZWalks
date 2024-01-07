@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using NZWalks.API.Models.Domain;
 using NZWalks.API.Models.DTO;
 
 namespace NZWalks.API.Controllers
@@ -15,7 +16,14 @@ namespace NZWalks.API.Controllers
             ValidateFileUpload(request);
             if (ModelState.IsValid)
             {
-
+                var imageDomainModel = new Image
+                {
+                    file = request.file,
+                    fileExtention = Path.GetExtension(request.file.FileName),
+                    fileDescription=request.fileDescription,
+                    fileName = request.fileName,
+                    fileSizeInBytes=request.file.Length,
+                };
             }
             return BadRequest(ModelState);
         }
@@ -26,7 +34,7 @@ namespace NZWalks.API.Controllers
             {
                 ModelState.AddModelError("file", "Unsupported file extension");
             }
-            if (request.file.Length>10485760)
+            if (request.file.Length > 10485760)
             {
                 ModelState.AddModelError("file", "File size is greater than 10MB, please upload a small sized file.");
             }
