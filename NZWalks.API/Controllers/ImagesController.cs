@@ -10,9 +10,26 @@ namespace NZWalks.API.Controllers
     {
         [HttpPost]
         [Route("Upload")]
-        public Task<IActionResult> Upload([FromBody] ImageUploadRequestDto request)
+        public async Task<IActionResult> Upload([FromBody] ImageUploadRequestDto request)
         {
+            ValidateFileUpload(request);
+            if (ModelState.IsValid)
+            {
 
+            }
+            return BadRequest(ModelState);
+        }
+        private void ValidateFileUpload(ImageUploadRequestDto request)
+        {
+            var allowedExtentions = new string[] { ".jpg", ".jpeg", ".png" };
+            if (!allowedExtentions.Contains(Path.GetExtension(request.file.FileName)))
+            {
+                ModelState.AddModelError("file", "Unsupported file extension");
+            }
+            if (request.file.Length>10485760)
+            {
+                ModelState.AddModelError("file", "File size is greater than 10MB, please upload a small sized file.");
+            }
         }
     }
 }
