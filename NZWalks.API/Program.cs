@@ -15,7 +15,7 @@ var builder = WebApplication.CreateBuilder(args);
 //Serilog configuration
 var logger = new LoggerConfiguration()
     .WriteTo.Console()
-    .MinimumLevel.Information()
+    .MinimumLevel.Warning()
     .CreateLogger();
 builder.Logging.ClearProviders();
 builder.Logging.AddSerilog();
