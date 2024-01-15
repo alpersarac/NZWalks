@@ -35,12 +35,21 @@ namespace NZWalks.API.Controllers
         }
         //GET:/ api/walks?filterOn=Name&filterQuery=Track
         [HttpGet]
-        [Authorize(Roles ="Reader")]
+        //[Authorize(Roles ="Reader")]
         public async Task<IActionResult> GetAll([FromQuery] string? filterOn, [FromQuery] string? filterQuery)
         {
-            _logger.LogInformation("GetAll Regions Action method was invoked");
-            _logger.LogWarning("Warning error");
-            _logger.LogError("Error log");
+            try
+            {
+                throw new Exception("test");
+            }
+            catch (Exception)
+            {
+                _logger.LogInformation("GetAll Regions Action method was invoked");
+                _logger.LogWarning("Warning error");
+                _logger.LogError("Error log");
+            }
+            
+            
             var regionDomains = await _regionRepository.GetAllAsync();
 
             _logger.LogInformation($"Finished GetAll Regions Action method was invoked {JsonSerializer.Serialize(regionDomains)}");

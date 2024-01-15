@@ -15,6 +15,7 @@ var builder = WebApplication.CreateBuilder(args);
 //Serilog configuration
 var logger = new LoggerConfiguration()
     .WriteTo.Console()
+    .WriteTo.File("Logs/NzWalks_Log.txt",rollingInterval: RollingInterval.Day)
     .MinimumLevel.Warning()
     .CreateLogger();
 builder.Logging.ClearProviders();
