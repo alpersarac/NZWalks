@@ -37,7 +37,7 @@ namespace NZWalks.API.Controllers
         {
 
             var walkRegionModel = await _walkRepository.GetAllAsync(filterOn,filterQuery,sortBy,isAscending??true,pageNumber,pageSize);
-
+            throw new Exception("errrrr");
             return Ok(_mapper.Map<WalkDto>(walkRegionModel));
         }
         [HttpGet]
