@@ -27,7 +27,7 @@ namespace NZWalks.API.Controllers
                 Email = registerRequestDTO.username
             };
             var identityResult = await _userManager.CreateAsync(identityUser, registerRequestDTO.password);
-            if (identityResult.Succeeded)
+            if (identityResult != null && identityResult.Succeeded)
             {
                 if (registerRequestDTO.roles != null && registerRequestDTO.roles.Any())
                 {
